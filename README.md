@@ -40,12 +40,11 @@ Discord webhook
 
 ```
 ai-it-ticket-triager/
-  lambda_function.py        # Lambda backend
-  ticket-submit.html        # HTML frontend
-  screenshots/              # Working proof
-    01-lambda-test-success.png
-    02-discord-notification.png
-    03-aws-architecture.png
+  lambda_function.py             # Lambda backend
+  ticket-submit.html             # HTML frontend
+  01-lambda-test-success.png     # Successful Lambda test with Claude's triage output
+  02-discord-notification.png    # Triaged ticket posted to Discord
+  03-aws-architecture.png        # AWS function overview (API Gateway -> Lambda)
   README.md
 ```
 
@@ -62,6 +61,20 @@ You'll need an AWS account, an Anthropic API key from console.anthropic.com, and
 3. Add an API Gateway trigger. HTTP API, open authorization (fine for a demo, but you'd want auth for anything real). Enable CORS with `*` origin, `POST,OPTIONS` methods, and `content-type` in the allowed headers.
 
 4. Open `ticket-submit.html`, swap in your own API Gateway URL where mine is, and serve it through a local HTTP server (Python's `http.server` works) rather than opening it as a file — browsers block the file:// origin on CORS preflight.
+
+## In action
+
+Successful Lambda execution with Claude's structured triage output:
+
+![Lambda test success](01-lambda-test-success.png)
+
+Triaged ticket posted to Discord with priority color-coding:
+
+![Discord notification](02-discord-notification.png)
+
+AWS function overview showing the API Gateway trigger wired into Lambda:
+
+![AWS architecture](03-aws-architecture.png)
 
 ## Decisions worth explaining
 
